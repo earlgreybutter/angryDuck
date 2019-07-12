@@ -6,6 +6,29 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<%@ include file="../include/header.jsp" %>
+	<script>
+	$(function(){
+		$("#btnLogin").click(function(){
+
+			var userid=$("#userid").val();
+			var passwd=$("#passwd").val();
+			
+			if(userid==""){
+				alert("아이디를 입력하세요");
+				$("#userid").focus();
+				return;
+			}
+			if(passwd==""){
+				alert("비밀번호를 입력하세요");
+				$("#passwd").focus();
+				return;
+			}
+			document.form1.action="${path}/member/login_check.do";
+			document.form1.submit();
+		});
+		
+	});
+	</script>
 </head>
 <body class="w3-light-grey">
 	<%@ include file="../include/side_menu.jsp" %>
@@ -15,10 +38,45 @@
 				<div class="w3-card w3-white w3-padding">
 					<h3 class="w3-center w3-xlarge">Login</h3>
 					<img src="resources/images/horse02.jpg" class="setCenter w3-margin-bottom" style="width:100%">
-					<form action="${path}/member/login">
-						<input type="text" id="fname" name="id" placeholder="ID">
-						<input type="text" id="lname" name="passwd" placeholder="Password">  
-						<input type="submit" value="Submit">
+					<form name="form1" method="post">
+						<table align="center">
+							<tr>
+								<td>아이디</td>
+								<td>
+									<input type="text" id="userid" name="userid" 
+									placeholder="ID" value="${map.dto.userid}">
+								</td>
+							</tr>
+							<tr>
+								<td>비밀번호</td>
+								<td>
+									<input type="password" id="passwd" name="passwd" 
+									placeholder="Password" value="${map.dto.passwd}">  
+								</td>
+							<tr>
+								<td colspan="2" align="center">
+									<input type="button"  id="btnLogin" value="로그인">
+								</td>
+							</tr>
+							<c:if test="${message=='join_success'}">
+								<tr>
+									<td colspan="2">
+										<div style="color:red;">
+											회원가입이 완료되었습니다.
+										</div>
+									</td>
+								</tr>	
+							</c:if>
+							<c:if test="${map.message=='login_fail'}">
+								<tr>
+									<td colspan="2">
+										<div style="color:red;">
+											아이디와 비밀번호가 틀립니다.
+										</div>
+									</td>
+								</tr>	
+							</c:if>
+						</table>
 					</form>
 				</div>
 			</div>

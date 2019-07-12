@@ -8,7 +8,8 @@
 
 
 <div>
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+	<!-- 네비게이션 역할을 하는 링크 그룹을 담을 때 사용 -->
+	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center"> 
 		<a href="${path}/" class="w3-bar-item w3-button w3-padding-large w3-white">
 			<i class="fa fa-home w3-xxlarge"></i>
 			<p>HOME</p>

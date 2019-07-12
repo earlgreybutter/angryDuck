@@ -12,3 +12,4 @@
 <link rel="stylesheet" href="resources/css/form.css">
 <script src="resources/js/jquery-3.3.1.js"> </script>
 <script src="resources/js/slideImage.js"> </script>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
