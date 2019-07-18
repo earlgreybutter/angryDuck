@@ -2,7 +2,7 @@ package com.ceramicduck.angryduck.service.member;
 
 import javax.servlet.http.HttpSession;
 
-import com.ceramicduck.angryduck.model.member.dto.MemberDTO;
+import com.ceramicduck.angryduck.model.dto.MemberDTO;
 
 public interface MemberService {
 

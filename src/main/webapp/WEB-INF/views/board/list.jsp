@@ -6,6 +6,14 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<%@ include file="../include/header.jsp" %>
+<script>
+function member_login(){
+	location.href="${path}/member/login.do";
+}
+function member_join(){
+	location.href="${path}/member/join.do";
+}
+</script>
 </head>
 <body class="w3-light-grey">
 	<%@ include file="../include/side_menu.jsp" %>
@@ -14,8 +22,8 @@
 		<header>
 			<div class="w3-container">
 				<h1><b><i class="fas fa-list-alt"></i> Board</b></h1>
-				<button class="w3-button w3-white">Login</button>
-				<button class="w3-button w3-white">Register</button>
+				<button class="w3-button w3-white" onclick="member_login()">Login</button>
+				<button class="w3-button w3-white" onclick="member_join()">Register</button>
 				<div class="w3-section w3-bottombar"></div>
 			</div>
 		</header>

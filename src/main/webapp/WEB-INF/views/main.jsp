@@ -7,12 +7,6 @@
 <title>Insert title here</title>
 <%@ include file="include/header.jsp"%>
 <script>
-function member_edit(){
-	location.href="${path}/member/edit.do";
-}
-function member_logout(){
-	location.href="${path}/member/logout.do";
-}
 function member_delete(){
 	if(confirm("정말 삭제하시겠습니까?")){
 		location.href="${path}/member/delete.do";
@@ -36,7 +30,7 @@ function member_delete(){
 		<div
 			class="w3-container w3-center w3-white w3-opacity w3-round-xxlarge"
 			id="main_title">
-			<h1 class="w3-jumbo">The horse cafe</h1>
+			<h1 class="w3-jumbo">GuestFinder</h1>
 
 			<c:choose>
 				<c:when test="${sessionScope.userid==null}">
@@ -77,14 +71,14 @@ function member_delete(){
 							<td colspan="3">${sessionScope.name}님이 로그인 중입니다.</td>
 						</tr>
 						<tr>
-							<td><input type="button" value="정보수정" onclick="member_edit()">&nbsp;&nbsp;</td>
-							<td><input type="button" value="로그아웃" onclick="member_logout()">&nbsp;&nbsp;</td>
+							<td><a href="${path}/member/edit.do"><button>정보수정</button></a>&nbsp;&nbsp;
+							<td><a href="${path}/member/logout.do"><button>로그아웃</button></a>&nbsp;&nbsp;</td>
 							<td><input type="button" value="회원탈퇴" onclick="member_delete()"></td>
 						</tr>
 					</table>
 				</c:otherwise>
 			</c:choose>
-			<p>about selling horse.</p>
+			<p>Find proper performer for concert.</p>
 		</div>
 	</div>
 

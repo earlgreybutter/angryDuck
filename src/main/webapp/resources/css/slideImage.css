@@ -8,7 +8,7 @@
 .slideBackground00 {
 	background-position: center;
 	background-size: cover;
-	background-image: url('../images/titleHorse00.jpg');
+	background-image: url('../images/title_00.jpg');
 	background-color: grey;
 	min-height: 100%;
 	display: block;
@@ -17,7 +17,7 @@
 .slideBackground01 {
 	background-position: center;
 	background-size: cover;
-	background-image: url('../images/titleHorse01.jpg');
+	background-image: url('../images/title_01.jpg');
 	background-color: grey;
 	min-height: 100%;
 	display: none;
@@ -26,7 +26,7 @@
 .slideBackground02 {
 	background-position: center;
 	background-size: cover;
-	background-image: url('../images/titleHorse02.jpg');
+	background-image: url('../images/title_02.jpg');
 	background-color: grey;
 	min-height: 100%;
 	display: none;

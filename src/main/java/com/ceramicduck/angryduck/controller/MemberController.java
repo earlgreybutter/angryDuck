@@ -1,4 +1,4 @@
-package com.ceramicduck.angryduck.controller.member;
+package com.ceramicduck.angryduck.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ceramicduck.angryduck.MenuController;
-import com.ceramicduck.angryduck.model.member.dto.MemberDTO;
+import com.ceramicduck.angryduck.model.dto.MemberDTO;
 import com.ceramicduck.angryduck.service.member.MemberService;
 
 @Controller

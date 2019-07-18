@@ -13,12 +13,10 @@
 			var userid=$("#userid").val();
 			var passwd=$("#passwd").val();
 			var email=$("#email").val();
+			//var role= $("input[name=role]:checked").val();
+			//var gender=$("#input[name=gender]:checked").val();
+			var age=$("#age").val();
 			
-			if(name==""){
-				alert("이름을 입력하세요");
-				$("name").focus();
-				return;
-			}
 			if(userid==""){
 				alert("아이디를 입력하세요");
 				$("#userid").focus();
@@ -27,6 +25,16 @@
 			if(passwd==""){
 				alert("비밀번호를 입력하세요");
 				$("#passwd").focus();
+				return;
+			}
+			if(name==""){
+				alert("이름을 입력하세요");
+				$("name").focus();
+				return;
+			}
+			if(age==""){
+				alert("나이를 입력하세요");
+				$("age").focus();
 				return;
 			}
 			if(email==""){
@@ -86,14 +94,16 @@
 					<img src="resources/images/horse02.jpg" class="setCenter w3-margin-bottom" style="width:100%">
 					<form name="form1" method="post">
 						<table align="center">
+						
 							<tr>
-								<td>이름</td>
+								<td>회원 유형&nbsp;&nbsp;</td>
 								<td>
-									<input type="text" id="name" name="name" 
-									placeholder="Name" value="${map.dto.name}">
-								</td>
+									<input type="radio" name="role" value="Performer" checked>연주자   
+									&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="role" value="AAA"> 주최자   
+							 	</td>
 							</tr>
-							
+							<tr><td><br></td></tr>
 							<tr>
 								<td>아이디</td>
 								<td>
@@ -103,20 +113,23 @@
 								<td>
 									<button type="button" id="btnIdDoubleCheck">중복확인</button>
 								</td>
+							</tr>
+							<tr>
+								<td></td>
 								<td>
 									<c:if test="${map.message=='id_success'}">
-										<div style="color:red;">
+										<span style="color:red;">
 											사용가능한 아이디입니다.
-										</div>
+										</span>
 									</c:if>
 									<c:if test="${map.message=='id_error'}">
-										<div style="color:red;">
+										<span style="color:red;">
 											이미사용중인 아이디입니다.
-										</div>
+										</span>
 									</c:if>
+									<br/>
 								</td>
 							</tr>
-	
 							<tr>
 								<td>비밀번호</td>
 								<td>
@@ -124,6 +137,31 @@
 									placeholder="Password" value="${map.dto.passwd}"> 
 							 	</td>
 							 </tr>
+							 <tr><td><br></td></tr>
+							<tr>
+								<td>이름</td>
+								<td>
+									<input type="text" id="name" name="name" 
+									placeholder="Name" value="${map.dto.name}">
+								</td>
+							</tr>
+							<tr>
+								<td>나이</td>
+								<td>
+									<input type="text" id="age" name="age" 
+									placeholder="Age">
+								</td>
+							</tr>
+							<tr><td><br></td></tr>
+							 <tr>
+								<td>성별</td>
+								<td>
+									<input type="radio" name="gender" value="MALE" checked>남성
+									&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="gender" value="FEMALE">여성
+							 	</td>
+							 </tr>
+							 <tr><td><br></td></tr>
 							 <tr>
 							 	<td>이메일</td>
 							 	<td>
@@ -131,9 +169,16 @@
 							 		placeholder="Email" value="${map.dto.email}">
 							 	</td>
 							 </tr>
+							 <tr><td><br></td></tr>
+							 <tr>
+								<td>자기소개</td>
+								<td>
+									<textarea  name="description" cols="21" rows="5"></textarea>
+							 	</td>
+							 </tr>
 							 <tr>
 							 	<td colspan="2" align="center">
-							 		<button type="button" id="btnJoin">회원가입</button>
+							 		<input type="button" id="btnJoin" value="회원가입">
 							 	</td>
 							 </tr>
 						</table>

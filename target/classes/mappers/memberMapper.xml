@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from member where userid=#{userid}
 	</delete>
 	
-	<select id="getMemberDTO" resultType="com.ceramicduck.angryduck.model.member.dto.MemberDTO">
+	<select id="getMemberDTO" resultType="com.ceramicduck.angryduck.model.dto.MemberDTO">
 		select * from member 
 		where userid=#{userid}
 	</select>

@@ -1,11 +1,11 @@
-package com.ceramicduck.angryduck.model.member.dao;
+package com.ceramicduck.angryduck.model.dao;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.ceramicduck.angryduck.model.member.dto.MemberDTO;
+import com.ceramicduck.angryduck.model.dto.MemberDTO;
 
 
 

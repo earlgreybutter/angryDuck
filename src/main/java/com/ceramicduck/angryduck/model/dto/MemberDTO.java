@@ -1,4 +1,4 @@
-package com.ceramicduck.angryduck.model.member.dto;
+package com.ceramicduck.angryduck.model.dto;
 
 import java.util.Date;
 

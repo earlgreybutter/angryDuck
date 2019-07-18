@@ -5,8 +5,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
-import com.ceramicduck.angryduck.model.member.dao.MemberDAO;
-import com.ceramicduck.angryduck.model.member.dto.MemberDTO;
+import com.ceramicduck.angryduck.model.dao.MemberDAO;
+import com.ceramicduck.angryduck.model.dto.MemberDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService {

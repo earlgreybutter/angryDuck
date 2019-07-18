@@ -6,29 +6,23 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<%@ include file="../include/header.jsp" %>
-	<script>
-	$(function(){
-		$("#btnLogin").click(function(){
-
-			var userid=$("#userid").val();
-			var passwd=$("#passwd").val();
-			
-			if(userid==""){
-				alert("아이디를 입력하세요");
-				$("#userid").focus();
-				return;
-			}
-			if(passwd==""){
-				alert("비밀번호를 입력하세요");
-				$("#passwd").focus();
-				return;
-			}
-			document.form1.action="${path}/member/login_check.do";
-			document.form1.submit();
-		});
-		
-	});
-	</script>
+<script>
+function btnLogin(){
+	var userid=$("#userid").val();
+	var passwd=$("#passwd").val();
+	
+	if(userid==""){
+		alert("아이디를 입력하세요");
+		$("#userid").focus();
+		return;
+	}
+	if(passwd==""){
+		alert("비밀번호를 입력하세요");
+		$("#passwd").focus();
+		return;
+	}
+}
+</script>
 </head>
 <body class="w3-light-grey">
 	<%@ include file="../include/side_menu.jsp" %>
@@ -38,7 +32,7 @@
 				<div class="w3-card w3-white w3-padding">
 					<h3 class="w3-center w3-xlarge">Login</h3>
 					<img src="resources/images/horse02.jpg" class="setCenter w3-margin-bottom" style="width:100%">
-					<form name="form1" method="post">
+					<form name="form1" action="${path}/member/login_check.do" method="post">
 						<table align="center">
 							<tr>
 								<td>아이디</td>
@@ -55,7 +49,7 @@
 								</td>
 							<tr>
 								<td colspan="2" align="center">
-									<input type="button"  id="btnLogin" value="로그인">
+									<button onclick="btnLogin()">로그인</button>
 								</td>
 							</tr>
 							<c:if test="${message=='join_success'}">

@@ -1,6 +1,6 @@
-package com.ceramicduck.angryduck.model.member.dao;
+package com.ceramicduck.angryduck.model.dao;
 
-import com.ceramicduck.angryduck.model.member.dto.MemberDTO;
+import com.ceramicduck.angryduck.model.dto.MemberDTO;
 
 public interface MemberDAO {
 	public String id_doublecheck(String userid);

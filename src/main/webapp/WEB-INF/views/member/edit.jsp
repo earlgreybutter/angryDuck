@@ -7,7 +7,8 @@
 	<title>Insert title here</title>
 	<%@ include file="../include/header.jsp" %>
 	
-	<script>
+<script>
+
 	$(function(){
 		$("#btnEdit").click(function(){
 			var name=$("#name").val();
@@ -44,6 +45,7 @@
 				return;
 			}
 			
+
 			document.form1.action="${path}/member/update.do";
 			document.form1.submit();
 		});
@@ -94,7 +96,7 @@
 							 <tr>
 							 	<td colspan="2" align="center">
 							 		<input type="hidden" id="beforepasswd" value="${dto.passwd}">
-							 		<button type="button" id="btnEdit">정보수정</button>
+							 		<input type="button" id="btnEdit" value="정보수정">
 							 	</td>
 							 </tr>
 						</table>
