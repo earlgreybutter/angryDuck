@@ -20,6 +20,35 @@
 		</repository>
 	</repositories>
 	<dependencies>
+	
+	<!-- 메일 발송을 위한 의존성 추가 -->
+	<dependency> 
+		<groupId>org.springframework</groupId> 
+		<artifactId>spring-context-support</artifactId> 
+		<version>${org.springframework-version}</version> 
+	</dependency>
+	<dependency> 
+		<groupId>com.sun.mail</groupId> 
+		<artifactId>javax.mail</artifactId> 
+		<version>1.5.6</version> 
+	</dependency>
+
+
+	<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
+<dependency>
+    <groupId>org.imgscalr</groupId>
+    <artifactId>imgscalr-lib</artifactId>
+    <version>4.2</version>
+</dependency>
+	
+	
+	<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version>
+</dependency>
+	
 	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>

@@ -4,8 +4,26 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>GuestFinder</title>
 	<%@ include file="../include/header.jsp" %>
+	<script>
+	$(function(){
+		$("#btnComment").click(function(){
+			var content=$("#content").val();
+			var community_id = "${map.dto.id}";
+			var param={"content": content, "community_id":community_id};
+			$.ajax({
+				type: "post",
+				url: "${path}/board/insertComment",
+				data : param,
+				success: function(){
+					alert("댓글이 등록되었습니다.");
+				}
+			});
+			location.reload();
+		});
+	});
+	</script>
 </head>
 <body class="w3-light-grey">
 	<%@ include file="../include/side_menu.jsp" %>
@@ -13,24 +31,50 @@
 		<!-- Header -->
 		<header>
 			<div class="w3-container">
-				<h1><b><i class="fab fa-sticker-mule"></i> Content Name</b></h1>
+				<h1><b><i class="fas fa-list-alt w3-xxlarge"></i> Content</b></h1>
 				<div class="w3-section w3-bottombar"></div>
 			</div>
 		</header>
 
-		<!-- First Photo Grid-->
+		<!-- 게시물 내용 -->
 		<div class="w3-row-padding">
 			<div class="w3-container w3-margin-bottom">
 				<div class="w3-container w3-white">
-					<div class="w3-half">
+			<!--		<div class="w3-half">
 						<img src="resources/images/horse01.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity w3-padding-16">
-					</div>
-					<div class="w3-half">
+					</div>   -->
+					<div class="w3-container w3-white w3-margin">
 						<div style="margin-left:16px">
-							<p><b>Lorem Ipsum</b></p>
-							<p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+							<p><b><h1>${map.dto.title}</h1></b></p>
+							<div><b>작성자</b> : ${map.dto.name} &nbsp;&nbsp;&nbsp;&nbsp;<b>조회수</b> : ${map.dto.viewcnt}</div>
+							<p>${map.dto.content}</p>
+							<div>${map.dto.timestamp}</div>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="w3-row-padding">
+			<div class="w3-container w3-margin-bottom">
+				<div class="w3-container w3-white">
+				<!-- 댓글 입력창 -->
+					<c:if test="${sessionScope.id != null}">
+						<textarea row="5" cols="80" id="content" 
+						placeholder="댓글을 작성하세요."></textarea>
+						<br/>
+						<button type="button" id="btnComment" class="w3-bar-item w3-button w3-black w3-hover-grey">댓글쓰기</button>
+						<hr/>
+					</c:if>
+				</div>
+				<!-- 댓글 list창 -->
+				<div class="w3-container w3-white" id="listComment">
+					<c:forEach var="row" items="${map.comments}" >
+						<div class="w3-container">
+							<b>${row.name }</b> (${row.timestamp})<br/>
+							${row.content}<br/><hr/>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -38,12 +82,13 @@
 		<!-- Pagination -->
 		<div class="w3-center w3-padding-32">
 			<div class="w3-bar">
-				<a href="#" class="w3-bar-item w3-button w3-black w3-hover-grey"> Back </a>
+				<a href="${path}/board?curPage=${map.curPage}&search_option=${map.search_option}&keyword=${map.keyword}" 
+				class="w3-bar-item w3-button w3-black w3-hover-grey"> Back </a>
 			</div>
 		</div>
 
 		<footer>
-			<div class="w3-black w3-center w3-padding-24">Created by <a href="" class="w3-hover-opacity">kok202</a></div>
+			<div class="w3-black w3-center w3-padding-24">Created by <a href="${path}/contact"" class="w3-hover-opacity">angryduck</a></div>
 		</footer>
 	</div>
 </body>
