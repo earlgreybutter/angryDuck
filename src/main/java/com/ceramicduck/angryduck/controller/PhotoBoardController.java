@@ -1,19 +1,28 @@
 package com.ceramicduck.angryduck.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ceramicduck.angryduck.model.dto.AccountDTO;
 import com.ceramicduck.angryduck.model.dto.PhotoBoardDTO;
-import com.ceramicduck.angryduck.service.photo_board.Pager;
 import com.ceramicduck.angryduck.service.photo_board.PhotoBoardService;
 
 @Controller
@@ -28,25 +37,97 @@ public class PhotoBoardController {
 		return "photo_board/write";
 	}
 	
+	private static final Logger logger = LoggerFactory.getLogger(PhotoBoardController.class);
+	
 	@RequestMapping("insert")
-	public String insert(@RequestParam(defaultValue="1")int curPage,
-			@RequestParam(defaultValue="all")String search_option,
-			@RequestParam(defaultValue="")String keyword,
-			@ModelAttribute PhotoBoardDTO dto,Model model,HttpSession session) {
+	public String insert(@ModelAttribute PhotoBoardDTO dto,@RequestParam("tag") String[] tag
+			, @RequestParam("instrument") String[] instrument, HttpSession session) throws IOException{
+		String filename="-";
+		if(!dto.getFile1().isEmpty()) {
+			filename = System.currentTimeMillis()+dto.getFile1().getOriginalFilename();
+			//배포 경로
+			String path1 = "C:\\Users\\a\\Desktop\\project\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\angryDuck\\resources\\images\\";
+			
+			//개발 경로
+			String path2 = "C:\\Users\\a\\Desktop\\project\\workspace\\angryDuck\\src\\main\\webapp\\resources\\images\\";
+			
+			// 이미지를 배포경로로 옮기고 개발 경로로 복사한다.
+			File file = new File(path1+filename);
+			File mfile = new File(path2+filename);
+			
+			InputStream inStream= null;
+			OutputStream outStream = null;
+			try {
+				dto.getFile1().transferTo(file);
+				inStream = new FileInputStream(file);
+				outStream = new FileOutputStream(mfile);
+				
+				byte[] buffer = new byte[1024]; 
+			    int length;
+			  
+			     while ((length = inStream.read(buffer)) > 0){
+			    	 outStream.write(buffer, 0, length);
+			     }
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				inStream.close();
+				outStream.close();
+			  }
+			
+		}
+		dto.setImage(filename);
+		int writer_id = (int)session.getAttribute("id");
+		dto.setWriter_id(writer_id);
+		photoBoardService.insert(dto);
 		
-		int count=1000;
-		Pager pager = new Pager(count,curPage);
-		int start=pager.getPageBegin();
-		int end=pager.getPageEnd();
+		int concert_id = photoBoardService.getId(writer_id);
 		
-		List<PhotoBoardDTO> list = photoBoardService.listAll(start,end,search_option,keyword);
-		model.addAttribute("list",list);
-		return "photo_board/list";
+		photoBoardService.insertConcertInstrument(concert_id, instrument);
+		photoBoardService.insertConcertTag(concert_id,tag);
+		
+		
+		return "redirect:/photoboard";
 	}
 	
-	@RequestMapping("content/{id}")
-	public String content(@PathVariable("id") String id) {
+	@RequestMapping("view")
+	public ModelAndView view(@RequestParam int id,
+			@RequestParam int curPage,
+			@RequestParam String search_option,
+			@RequestParam String keyword, HttpSession session, ModelAndView mav) {
+		photoBoardService.increaseViewcnt(id);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		mav.setViewName("photo_board/content");
+		map.put("dto",photoBoardService.getView(id));
+		map.put("curPage",curPage);
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		mav.addObject("map",map);
 		
-		return "photo_board/content";
+		return mav;
+	}
+	
+	@RequestMapping("insertApply")
+	@ResponseBody
+	public void insertApply(@RequestParam("concert_id") int concert_id,
+			HttpSession session) {
+		int account_id = (int)session.getAttribute("id");
+		photoBoardService.insertApply(account_id,concert_id);
+	}
+	
+	@RequestMapping("viewApplicants")
+	public ModelAndView viewApplicants(@RequestParam("id") int concert_id, HttpSession session, ModelAndView mav) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<AccountDTO> applicants = photoBoardService.getApplicants(concert_id);
+		map.put("applicants",applicants);
+		mav.addObject("map",map);
+		mav.setViewName("photo_board/applicants");
+		return mav;
+	}
+	
+	@RequestMapping("deleteConcert")
+	public String deleteConcert(@RequestParam("id") int concert_id) {
+		photoBoardService.deleteConcert(concert_id);
+		return "redirect:/photoboard";
 	}
 }

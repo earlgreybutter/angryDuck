@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>GuestFinder</title>
 	<%@ include file="../include/header.jsp" %>
 </head>
 <body class="w3-light-grey">
@@ -15,13 +15,13 @@
 			<h3 class="w3-center w3-xxlarge">THE PROFILE</h3>
 			<div class="setCenter" style="width:500px">
 				<div class="w3-card">
-				<img src="resources/images/horse02.jpg" style="width:100%">
+				<img src="${path}/resources/images/about_01.jpg" style="width:100%">
 				<div class="w3-container">
 					<h3>Metal duck</h3>
 					<p class="w3-opacity">duckduck</p>
 					<p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
 					<p><button class="w3-button w3-light-grey w3-block">
-					<a href="">
+					<a href="${path}/contact">
 						<i class="fa fa-envelope"></i> Contact</a>
 					</button>
 					</p>
