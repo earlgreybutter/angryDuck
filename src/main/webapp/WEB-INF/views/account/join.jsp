@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 	<script>
 	window.onload = function(){
@@ -115,19 +115,20 @@
 	</div>
 	
 	<div class="w3-padding-large w3-display-middle" id="main_forMargin">
-		<div class="w3-container w3-white w3-round-xxlarge w3-opacity-min" style="padding:32px 16px">
+		<div class="w3-container w3-white w3-round-xxlarge" style="width:650px;padding:32px 16px">
 			<div id="formCenter">
-				<div class="w3-card w3-white w3-padding">
-					<h3 class="w3-center w3-xlarge">회원가입</h3>
+				<div class="w3-white w3-padding">
+					<h3 class="w3-center w3-xxlarge">회원가입</h3>
 					<form name="form1" method="post">
 					<input type="hidden" name="role" value="${map.dto.role}">
 						<table align="center">
 							<tr>
-								<td>이메일</td>
+								<td style="width:100px">이메일</td>
 								<td>
-									<input type="text" id="email" name="email"
-										placeholder="Email" value="${map.dto.email}">
-									<input type="button" id="btnEmailDoubleCheck" value="중복확인">
+									<input class="w3-input w3-border w3-round-large" type="text" id="email" name="email" value="${map.dto.email}" placeholder="Email">
+								</td>
+								<td>
+									<input class="w3-center w3-button w3-black w3-hover-grey" type="button" id="btnEmailDoubleCheck" value="중복확인">
 								</td>
 							</tr>
 							<tr> 
@@ -148,31 +149,34 @@
 							</tr>
 							<tr>
 								<td>비밀번호</td>
-								<td>
-									<input type="password" id="password" name="password"
-										placeholder="Password" value="${map.dto.password}">
+								<td colspan="2">
+									<input class="w3-input w3-border" type="password" id="password" name="password" value="${map.dto.password}" placeholder="Password">
 								</td>
 							</tr>
 							<tr><td><br/></td></tr>
 							<tr>
 								<td>이름</td>
-								<td>
-									<input type="text" id="name" name="name"
+								<td colspan="2">
+									<input
+										class="w3-input w3-border w3-round-large" 
+										type="text" id="name" name="name"
 										placeholder="Name" value ="${map.dto.name}">
 								</td>
 							</tr>
 							<tr><td><br/></td></tr>
 							<tr>
 								<td>나이</td>
-								<td>
-									<input type="number" id="age" name="age"
+								<td colspan="2">
+									<input
+										class="w3-input w3-border"  
+										type="number" id="age" name="age"
 										placeholder="Age" value="${map.dto.age}">
 								</td>
 							</tr>
 							<tr><td><br/></td></tr>
 							<tr>
 								<td>성별</td>
-								<td>
+								<td colspan="2">
 									<input type="radio" id="male" name="gender" value="male">남성
 									&nbsp;&nbsp;&nbsp;<input type="radio" id="female" name="gender" value="female">여성
 								</td>
@@ -182,7 +186,7 @@
 								<c:when test="${map.dto.role.equals('performer')}">
 							<tr>
 								<td>악기</td>
-								<td>
+								<td colspan="2">
 									<input type="checkbox" name="instrument" value="violin">바이올린&nbsp;
 									<input type="checkbox" name="instrument" value="viola">비올라&nbsp;
 									<input type="checkbox" name="instrument" value="cello">첼로&nbsp;
@@ -193,7 +197,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td>
+								<td colspan="2">
 									<input type="checkbox" name="instrument" value="flute">플루트&nbsp;
 									<input type="checkbox" name="instrument" value="oboe">오보에&nbsp;
 									<input type="checkbox" name="instrument" value="clarinet">클라리넷&nbsp;
@@ -204,7 +208,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td>
+								<td colspan="2">
 									<input type="checkbox" name="instrument" value="trumpet">트럼펫&nbsp;
 									<input type="checkbox" name="instrument" value="trombone">트롬본&nbsp;
 									<input type="checkbox" name="instrument" value="drum">드럼&nbsp;
@@ -216,7 +220,7 @@
 							<tr><td><br/></td></tr>
 							<tr>
 								<td>태그</td>
-								<td>
+								<td colspan="2">
 									<input type="checkbox" name="tag" value="rock">락&nbsp;
 									<input type="checkbox" name="tag" value="folk">포크&nbsp;
 									<input type="checkbox" name="tag" value="rnb">알앤비&nbsp;
@@ -228,7 +232,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td>
+								<td colspan="2">
 									<input type="checkbox" name="tag" value="indie">인디&nbsp;
 									<input type="checkbox" name="tag" value="rap">랩&nbsp;
 									<input type="checkbox" name="tag" value="ballads">발라드&nbsp;
@@ -246,14 +250,13 @@
 						</c:choose>
 							<tr>
 								<td>자기소개</td>
-								<td>
-									<textarea cols="25" rows="3" name="description">${map.dto.description}</textarea>
+								<td colspan="2">
+									<textarea class="w3-input w3-border w3-round" style="resize:none" rows="3" name="description">${map.dto.description}</textarea>
 								</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td>
-									<input type="button" id="btnJoin" value="회 원 가 입">
+								<td colspan="3" align="center">
+									<input class="w3-large w3-center w3-button w3-black w3-hover-grey" type="button" id="btnJoin" value="회원가입">
 								</td>
 							</tr>
 						</table>

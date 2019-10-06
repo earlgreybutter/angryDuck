@@ -4,12 +4,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 <script>
 $(function(){
 	$("#btnViewMyPosts").click(function(){
-		location.href = "${path}/board?search_option=writer_id&keyword=${sessionScope.id}";
+		location.href = "${path}/board?searchOption=writerId&keyword=${sessionScope.id}";
 	});
 });
 function writeBoard(){
@@ -27,7 +27,7 @@ function accountJoin(){
 	location.href="${path}/account/beforeJoin";
 }
 function list(page){
-	location.href="${path}/board?curPage="+page+"&search_option=${map.search_option}"
+	location.href="${path}/board?curPage="+page+"&searchOption=${map.searchOption}"
 	+"&keyword=${map.keyword}";
 }
 </script>
@@ -35,7 +35,6 @@ function list(page){
 <body class="w3-light-grey">
 	<%@ include file="../include/side_menu.jsp" %>
 	<div id="main_content">
-		<!-- Header -->
 		<header>
 			<div class="w3-container">
 				<h1>
@@ -70,7 +69,7 @@ function list(page){
 			<div class="w3-padding-16">
 				<a href="${path}/board/view?id=1
 				&curPage=${map.pager.curPage}
-				&search_option=${map.search_option}
+				&searchOption=${map.searchOption}
 				&keyword=${map.keyword}" class="anchorNoDeco">
 					<div class="w3-container">
 						<div style="color:green;"> <b> [${map.notice.id}] ${map.notice.title} </b>(${map.notice.cnt})<br/> </div>
@@ -85,7 +84,7 @@ function list(page){
 				<c:forEach var="row" items="${map.list }">
 				<a href="${path}/board/view?id=${row.id}
 				&curPage=${map.pager.curPage}
-				&search_option=${map.search_option}
+				&searchOption=${map.searchOption}
 				&keyword=${map.keyword}" class="anchorNoDeco">
 					<div class="w3-container">
 						<div> <b> [${row.id}] ${row.title} </b>(${row.cnt})<br/> </div>
@@ -98,7 +97,7 @@ function list(page){
 							</div>
 							<div class="w3-half">	
 								<c:choose>
-									<c:when test="${sessionScope.id == row.writer_id}">
+									<c:when test="${sessionScope.id == row.writerId}">
 										<a href="${path}/board/deleteCommunity?id=${row.id}"><input type="button" value="삭제하기" class="w3-button w3-black w3-hover-grey"></a>
 									</c:when>
 								</c:choose>
@@ -116,21 +115,21 @@ function list(page){
 			<table>
 				<tr>
 					<td>
-						<select name="search_option">
+						<select name="searchOption">
 						<c:choose>
-						<c:when test="${map.search_option =='name'}">
+						<c:when test="${map.searchOption =='name'}">
 							<option value="all">이름+제목+내용</option>
 							<option value="name" selected>이름</option>
 							<option value="content">내용</option>
 							<option value="title">제목</option>
 						</c:when>
-						<c:when test="${map.search_option =='content'}">
+						<c:when test="${map.searchOption =='content'}">
 							<option value="all">이름+제목+내용</option>
 							<option value="name">이름</option>
 							<option value="content" selected>내용</option>
 							<option value="title">제목</option>
 						</c:when>
-						<c:when test="${map.search_option =='title'}">
+						<c:when test="${map.searchOption =='title'}">
 							<option value="all">이름+제목+내용</option>
 							<option value="name">이름</option>
 							<option value="content">내용</option>
@@ -183,11 +182,6 @@ function list(page){
 			</div>
 		</div>
 
-		<footer>
-			<div class="w3-black w3-center w3-padding-24">
-				Created by <a href="${path}/contact"" class="w3-hover-opacity">angryduck</a>
-			</div>
-		</footer>
 	</div>
 </body>
 </html>

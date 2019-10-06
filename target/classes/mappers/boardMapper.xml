@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rn between #{start} and #{end}
 	</sql>
 
-	<select id="listAll" resultType="com.ceramicduck.angryduck.model.dto.BoardDTO">
+	<select id="listAll" resultType="com.ceramicduck.angryduck.dto.BoardDTO">
 		<include refid="paging_header" />
 		select rownum,c.id,title,timestamp,viewcnt,name,writer_id,
 		(select count(*) from community_comment where community_id = c.id) cnt
@@ -53,10 +53,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insert">
 		insert into community (id,writer_id,title,content) values
-		(SEQ_COMMUNITY.nextval, #{writer_id}, #{title}, #{content})
+		(SEQ_COMMUNITY.nextval, #{writerId}, #{title}, #{content})
 	</insert>
 	
-	<select id="getView" resultType="com.ceramicduck.angryduck.model.dto.BoardDTO">
+	<select id="getView" resultType="com.ceramicduck.angryduck.dto.BoardDTO">
 		select c.id, name, title, content, timestamp, viewcnt
 		from community c, account a 
 		where c.writer_id = a.id and c.id = #{id}
@@ -70,16 +70,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertComment">
 		insert into community_comment (id,writer_id,community_id,content) values
-		(SEQ_COMMUNITY_COMMENT.nextval,#{writer_id},#{community_id},#{content})
+		(SEQ_COMMUNITY_COMMENT.nextval,#{writerId},#{communityId},#{content})
 	</insert>
 	
-	<select id="getComments" resultType="com.ceramicduck.angryduck.model.dto.CommentDTO">
+	<select id="getComments" resultType="com.ceramicduck.angryduck.dto.CommentDTO">
 		select name,timestamp,content
 		from community_comment cc, account a
-		where cc.community_id = #{community_id} and cc.writer_id = a.id
+		where cc.community_id = #{communityId} and cc.writer_id = a.id
 		order by timestamp desc
 	</select>
-	<select id="getNotice" resultType="com.ceramicduck.angryduck.model.dto.BoardDTO">
+	<select id="getNotice" resultType="com.ceramicduck.angryduck.dto.BoardDTO">
 		select c.id, title,timestamp,viewcnt,name,
 		(select count(*) from community_comment where community_id = c.id) cnt
 		from community c, account a

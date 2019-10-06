@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 	<script>	
 		$(function(){ 
@@ -30,30 +30,24 @@
 	</div>
 	
 	<div class="w3-padding-large w3-display-middle" id="main_forMargin">
-		<div class="w3-container w3-white w3-round-xxlarge w3-opacity-min" style="padding:32px 16px">
+		<div class="w3-container w3-white w3-round-xxlarge" style="width:550px; padding:32px 16px">
 			<div id="formCenter">
-				<div class="w3-card w3-white w3-padding">
+				<div class="w3-white w3-padding">
+					<h3 class="w3-center w3-xxlarge">회원 유형</h3>
 					<br>
-					<h3 class="w3-center w3-xlarge">회원 유형</h3>
-					<br>
-					<form name="form1" method="post">
-						<table align="center">
-							<tr>
-								<td>
-									<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="role" value="performer">연주자
-									&nbsp;&nbsp;&nbsp;
-									<input type="radio" name="role" value="recruiter">주최자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
-								</td>
-							</tr>
-								<td><br></td>
-							<tr>
-							</tr>
-							<tr>
-							</tr>
-							<tr>
-								<td><h4 class="w3-center"><button id="btnSelectRole">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button></h4></td>
-							</tr>
-							</table>
+					<form class="w3-center" name="form1" method="post">
+						<input class="w3-radio" type="radio" name="role" value="performer" checked>
+						<label class="w3-xlarge">연주자</label>
+						</br>
+						</br>
+						<input class="w3-radio" type="radio" name="role" value="recruiter">
+						<label class="w3-xlarge">주최자</label>
+						
+						</br>
+						</br>
+						</br>
+						</br>
+						<button class="w3-large w3-center w3-button w3-black w3-hover-grey" id="btnSelectRole">확인</button>
 					</form>
 				</div>
 			</div>

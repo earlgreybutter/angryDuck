@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ceramicduck.angryduck.model.dto.BoardDTO;
-import com.ceramicduck.angryduck.model.dto.CommentDTO;
-import com.ceramicduck.angryduck.service.board.BoardService;
+import com.ceramicduck.angryduck.dto.BoardDTO;
+import com.ceramicduck.angryduck.dto.CommentDTO;
+import com.ceramicduck.angryduck.service.BoardService;
 
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
-
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Inject
@@ -32,20 +31,19 @@ public class BoardController {
 	public String write() {	
 		return "/board/write";
 	}
+	
 	@RequestMapping("insert")
 	public String insert(@ModelAttribute BoardDTO dto, HttpSession session) {
-		int writer_id = (int)session.getAttribute("id");
-		dto.setWriter_id(writer_id);
+		int writerId = (int)session.getAttribute("id");
+		dto.setWriterId(writerId);
 		boardService.insert(dto);
-		
 		return "redirect:/board";
 	}
-	
 	
 	@RequestMapping("view")
 	public ModelAndView view(@RequestParam int id,
 			@RequestParam int curPage,
-			@RequestParam String search_option,
+			@RequestParam String searchOption,
 			@RequestParam String keyword, HttpSession session, ModelAndView mav) {
 		boardService.increaseViewcnt(id);
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -54,10 +52,9 @@ public class BoardController {
 		map.put("comments",comments);
 		map.put("dto",boardService.getView(id));
 		map.put("curPage",curPage);
-		map.put("search_option", search_option);
+		map.put("search_option", searchOption);
 		map.put("keyword", keyword);
 		mav.addObject("map",map);
-		
 		return mav;
 	}
 	
@@ -65,7 +62,7 @@ public class BoardController {
 	@ResponseBody
 	public void insertCommnet(CommentDTO dto,HttpSession session) {
 		int id = (int)session.getAttribute("id");
-		dto.setWriter_id(id);
+		dto.setWriterId(id);
 		boardService.insertComment(dto);
 	}
 	

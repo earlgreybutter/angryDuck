@@ -4,14 +4,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 	<script>
 	$(function(){
 		$("#btnComment").click(function(){
 			var content=$("#content").val();
-			var community_id = "${map.dto.id}";
-			var param={"content": content, "community_id":community_id};
+			var communityId = "${map.dto.id}";
+			var param={"content": content, "communityId":communityId};
 			$.ajax({
 				type: "post",
 				url: "${path}/board/insertComment",
@@ -38,8 +38,8 @@
 
 		<!-- 게시물 내용 -->
 		<div class="w3-row-padding">
-			<div class="w3-container w3-margin-bottom">
-				<div class="w3-container w3-white">
+			<div class="w3-container">
+				<div class="w3-container w3-white" style="padding-bottom:64px;margin-bottom:32px">
 			<!--		<div class="w3-half">
 						<img src="resources/images/horse01.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity w3-padding-16">
 					</div>   -->
@@ -57,10 +57,10 @@
 		
 		<div class="w3-row-padding">
 			<div class="w3-container w3-margin-bottom">
-				<div class="w3-container w3-white">
+				<div class="w3-container w3-white" style="padding-top:32px">
 				<!-- 댓글 입력창 -->
 					<c:if test="${sessionScope.id != null}">
-						<textarea row="5" cols="80" id="content" 
+						<textarea row="5" class="w3-input w3-border w3-round" style="resize:none;height:100px"  id="content" 
 						placeholder="댓글을 작성하세요."></textarea>
 						<br/>
 						<button type="button" id="btnComment" class="w3-bar-item w3-button w3-black w3-hover-grey">댓글쓰기</button>
@@ -82,14 +82,11 @@
 		<!-- Pagination -->
 		<div class="w3-center w3-padding-32">
 			<div class="w3-bar">
-				<a href="${path}/board?curPage=${map.curPage}&search_option=${map.search_option}&keyword=${map.keyword}" 
+				<a href="${path}/board?curPage=${map.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}" 
 				class="w3-bar-item w3-button w3-black w3-hover-grey"> Back </a>
 			</div>
 		</div>
 
-		<footer>
-			<div class="w3-black w3-center w3-padding-24">Created by <a href="${path}/contact"" class="w3-hover-opacity">angryduck</a></div>
-		</footer>
 	</div>
 </body>
 </html>

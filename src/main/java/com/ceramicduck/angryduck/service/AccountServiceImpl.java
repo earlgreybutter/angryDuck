@@ -4,21 +4,14 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.ceramicduck.angryduck.model.dao.AccountDAO;
-import com.ceramicduck.angryduck.model.dao.PhotoBoardDAO;
-import com.ceramicduck.angryduck.model.dto.AccountDTO;
-import com.ceramicduck.angryduck.model.dto.InstrumentDTO;
-import com.ceramicduck.angryduck.model.dto.TagDTO;
+import com.ceramicduck.angryduck.dao.AccountDAO;
+import com.ceramicduck.angryduck.dao.PhotoBoardDAO;
+import com.ceramicduck.angryduck.dto.AccountDTO;
+import com.ceramicduck.angryduck.dto.InstrumentDTO;
+import com.ceramicduck.angryduck.dto.TagDTO;
 
-/**
- * @author a
- *
- */
 @Service
 public class AccountServiceImpl implements AccountService {
 	@Inject
@@ -26,8 +19,6 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Inject
 	PhotoBoardDAO photoBoardDao;
-	
-	private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 	
 	@Override
 	public void insertAccount(AccountDTO dto) {
@@ -37,12 +28,12 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public String emailDoubleCheck(String email) {
 		String checkEmail =  accountDao.emailDoubleCheck(email);
-		
 		if(checkEmail != null) //아이디가 중복일 경우
 			return "emailFail";
 		else //중복이 아닌경우
 			return "emailSuccess";
 	}
+	
 	@Override
 	public int getId(String email) {
 		return accountDao.getId(email);
@@ -83,20 +74,22 @@ public class AccountServiceImpl implements AccountService {
 	public void deleteAccount(int accountId) {
 		accountDao.deleteAccount(accountId);
 	}
+	
 	@Override
 	public void deleteAccountInstrument(int accountId) {
 		accountDao.deleteAccountInstrument(accountId);
 	}
+	
 	@Override
 	public void deleteAccountTag(int accountId) {
 		accountDao.deleteAccountTag(accountId);
 	}
+	
 	@Override
 	public AccountDTO getDto(int accountId) {
 		AccountDTO dto = accountDao.getAccount(accountId);
 		dto.setInstruments((ArrayList<InstrumentDTO>) accountDao.getAccountInstrument(accountId));
 		dto.setTags((ArrayList<TagDTO>) accountDao.getAccountTag(accountId));
-		
 		return dto;
 	}
 	
@@ -109,7 +102,6 @@ public class AccountServiceImpl implements AccountService {
 	public void deleteAll(int accountId) {
 		ArrayList<Integer> concerts = (ArrayList<Integer>)photoBoardDao.getAllId(accountId); 
 		int length = concerts.size();
-		
 		for(int i=0; i<length; i++) {
 			photoBoardDao.deleteConcert(concerts.get(i));
 		}

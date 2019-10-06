@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 <script>
 function btnLogin(){
@@ -36,28 +36,28 @@ function btnLogin(){
 	</div>
 	
 	<div class="w3-padding-large w3-display-middle" id="main_forMargin">
-		<div class="w3-container w3-white w3-opacity-min w3-round-xxlarge" style="padding:32px 16px">
+		<div class="w3-container w3-white w3-round-xxlarge" style="width:550px; padding:32px 16px">
 			<div id="formCenter">
-				<div class="w3-card w3-white w3-padding">
-					<h3 class="w3-center w3-xlarge">Login</h3>
+				<div class="w3-white w3-padding">
+					<h3 class="w3-center w3-xxlarge">Login</h3>
+					</br>
 					<form name="form1" method="post">
+					
 						<table align="center">
 							<tr>
-								<td>이메일</td>
-								<td>
-									<input type="text" id="email" name="email" 
-									placeholder="Email" value="${map.email}">
-								</td>
+								<label class="w3-large">Email</label>
+								<div class="w3-rest w3-large">
+									<input class="w3-input w3-border w3-round-large" style="height:60px" type="text" id="email" name="email" value="${map.email}">
+								</div>
 							</tr>
 							<tr>
-								<td>비밀번호</td>
-								<td>
-									<input type="password" id="password" name="password" 
-									placeholder="Password">  
-								</td>
+								<label class="w3-large">Password</label>
+								<div class="w3-rest w3-large">
+									<input class="w3-input w3-border w3-round-large" type="password" id="password" name="password" style="height:60px">  
+								</div>
 							<tr>
 								<td colspan="2" align="center">
-									<input type="button" value ="로그인" onclick="btnLogin()">
+									<input class="w3-button w3-black w3-hover-grey w3-border" type="button" value ="로그인" onclick="btnLogin()">
 								</td>
 							</tr>
 							<c:if test="${message=='joinSuccess'}">

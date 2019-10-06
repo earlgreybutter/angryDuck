@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 <script>
 window.onload = function(){
@@ -73,17 +73,19 @@ $(function(){
 	<div class="w3-display-container w3-grayscale-min slideBackground02">
 	</div>
 	<div class="w3-padding-large w3-display-middle" id="main_forMargin">
-		<div class="w3-container w3-white w3-round-xxlarge w3-opacity-min" style="padding:32px 16px">
+		<div class="w3-container w3-white w3-round-xxlarge" style="width:650px; padding:32px 16px">
 			<div id="formCenter">
-				<div class="w3-card w3-white w3-padding">
-					<h3 class="w3-center w3-xlarge">정보수정</h3>
+				<div class="w3-white w3-padding">
+					<h3 class="w3-center w3-xxlarge">정보수정</h3>
 					<form name="form1" method="post">
 						<table align="center">
 							<input type="hidden" name="role" value="${dto.role}">
 							<tr>
 								<td>이메일</td>
 								<td>
-									<input type="text" id="email" name="email"
+									<input
+										class="w3-input w3-border w3-round-large" 
+										type="text" id="email" name="email"
 										placeholder="Email" value="${dto.email}" readonly>
 								</td>
 							</tr>
@@ -94,7 +96,8 @@ $(function(){
 							<tr>
 								<td>비밀번호</td>
 								<td>
-									<input type="password" id="password" name="password"
+									<input class="w3-input w3-border"
+										type="password" id="password" name="password"
 										placeholder="Password" value="${dto.password}">
 								</td>
 							</tr>
@@ -102,7 +105,9 @@ $(function(){
 							<tr>
 								<td>이름</td>
 								<td>
-									<input type="text" id="name" name="name"
+									<input 
+										class="w3-input w3-border w3-round-large" 
+										type="text" id="name" name="name"
 										placeholder="Name" value ="${dto.name}">
 								</td>
 							</tr>
@@ -110,7 +115,9 @@ $(function(){
 							<tr>
 								<td>나이</td>
 								<td>
-									<input type="number" id="age" name="age"
+									<input 
+										class="w3-input w3-border"  
+										type="number" id="age" name="age"
 										placeholder="Age" value="${dto.age}">
 								</td>
 							</tr>
@@ -191,13 +198,13 @@ $(function(){
 							<tr>
 								<td>자기소개</td>
 								<td>
-									<textarea cols="25" rows="3" name="description">${dto.description}</textarea>
+									<textarea class="w3-input w3-border w3-round" style="resize:none" rows="3" name="description">${dto.description}</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td></td>
 								<td>
-									<input type="button" id="btnUpdate" value="정 보 수 정">
+									<input class="w3-large w3-center w3-button w3-black w3-hover-grey" type="button" id="btnUpdate" value="정 보 수 정">
 								</td>
 							</tr>
 						</table>

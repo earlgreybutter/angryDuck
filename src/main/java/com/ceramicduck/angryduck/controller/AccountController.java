@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ceramicduck.angryduck.model.dto.AccountDTO;
+import com.ceramicduck.angryduck.dto.AccountDTO;
 import com.ceramicduck.angryduck.service.AccountService;
 
 @Controller
@@ -35,14 +35,16 @@ public class AccountController {
 	}
 	
 	@RequestMapping("update")
-	public ModelAndView update(@ModelAttribute AccountDTO dto, @RequestParam("tag") String[] tag
-			, @RequestParam("instrument") String[] instrument, HttpSession session, ModelAndView mav) {
+	public ModelAndView update(
+			@ModelAttribute AccountDTO dto, 
+			@RequestParam("tag") String[] tag, 
+			@RequestParam("instrument") String[] instrument, 
+			HttpSession session, 
+			ModelAndView mav) {
 		
 		int accountId = (int)session.getAttribute("id");
-		
 		accountService.updateAccount(dto);
 		session.setAttribute("name",dto.getName());
-		
 		if(!instrument[0].equals("none")) {
 			accountService.deleteAccountInstrument(accountId);
 			accountService.insertAccountInstrument(accountId, instrument);
@@ -51,7 +53,6 @@ public class AccountController {
 			accountService.deleteAccountTag(accountId);
 			accountService.insertAccountTag(accountId,tag);
 		}
-		
 		mav.addObject("message","updateSuccess");
 		mav.setViewName("main");
 		return mav;

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 	<script>
 	function pageback(){
@@ -29,29 +29,52 @@
 			</div>
 			
 		</header>
-		<b>&nbsp;&nbsp;&nbsp;&nbsp;지원자 목록입니다.</b>
+		<b class="w3-xlarge">&nbsp;&nbsp;&nbsp;&nbsp;지원자 목록입니다.</b>
 
-		<div class="w3-container w3-white w3-margin">
+		<div class="w3-container w3-margin">
 			<div class="w3-padding-16">
 				
 				<c:forEach var="row" items="${map.applicants}">
-					<div class="w3-container">
-						<p>email : ${row.email}</p>
-						<p>name : ${row.name}</p>
-						<p>age : ${row.age} &nbsp;&nbsp;&nbsp;&nbsp; gender : ${row.gender}</p>
-						<p>
-						instruments : 
-						<c:forEach var="instrument" items="${row.instruments}">
-							${instrument.name} &nbsp;
-						</c:forEach>
-						</p>
-						<p>
-						tag : 
-						<c:forEach var="tag" items="${row.tags}">
-							${tag.content} &nbsp;
-						</c:forEach>
-						</p>
-						<p>자기소개 : ${row.description}</p>
+					<div class="w3-container w3-card w3-white ">
+						<table class="w3-center" style="width:100%">
+							<tr>
+								<td><label class="w3-large">Email</label></td>
+								<td><div class="w3-large w3-panel w3-border">${row.email}</div></td>
+							</tr>
+							<tr>
+								<td><label class="w3-large">Name</label></td>
+								<td><div class="w3-large w3-panel w3-border">${row.name}</div></td>
+							</tr>
+							<tr>
+								<td><label class="w3-large">Age</label></td>
+								<td><div class="w3-large w3-panel w3-border">${row.age}</div></td>
+							</tr>
+							<tr>
+								<td><label class="w3-large">Gender</label></td>
+								<td><div class="w3-large w3-panel w3-border">${row.gender}</div></td>
+							</tr>
+							<tr>
+								<td><label class="w3-large">Instruments</label></td>
+								<td><div class="w3-large w3-panel w3-border">
+									<c:forEach var="instrument" items="${row.instruments}">
+										${instrument.name} &nbsp;
+									</c:forEach>
+								</div></td>
+							</tr>
+							<tr>
+								<td><label class="w3-large">Tags</label></td>
+								<td><div class="w3-large w3-panel w3-border">
+									<c:forEach var="tag" items="${row.tags}">
+										${tag.content} &nbsp;
+									</c:forEach>
+								</div></td>
+							</tr>
+							<tr>
+								<td><label class="w3-large">자기소개</label></td>
+								<td><div class="w3-large w3-panel w3-border">${row.description}
+								</div></td>
+							</tr>
+						</table>
 					</div>
 				<hr>
 				</c:forEach>
@@ -59,11 +82,6 @@
 		</div>
 		
 
-		<footer>
-			<div class="w3-black w3-center w3-padding-24">
-				Created by <a href="${path}/contact"" class="w3-hover-opacity">angryduck</a>
-			</div>
-		</footer>
 	</div>
 </body>
 </html>

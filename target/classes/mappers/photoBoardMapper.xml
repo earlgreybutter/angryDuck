@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rn between #{start} and #{end}
 	</sql>
 
-	<select id="listAll" resultType="com.ceramicduck.angryduck.model.dto.PhotoBoardDTO">
+	<select id="listAll" resultType="com.ceramicduck.angryduck.dto.PhotoBoardDTO">
 		<include refid="paging_header" />
 		select rownum, c.writer_id ,c.id,title,viewcnt,image,name,timestamp
 		from concert c, account a
@@ -51,18 +51,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insert">
 		insert into concert (id,writer_id,title,content,image,region,datetime) values
-		(SEQ_CONCERT.nextval, #{writer_id}, #{title}, #{content},#{image},#{region},#{datetime})
+		(SEQ_CONCERT.nextval, #{writerId}, #{title}, #{content},#{image},#{region},#{datetime})
 	</insert>
 	
 	<select id="getId" resultType="int">
 		select id
-		from(select id from concert where writer_id = #{writer_id} order by timestamp desc)
+		from(select id from concert where writer_id = #{writerId} order by timestamp desc)
 		where rownum =1
 	</select>
 	<select id="getAllId" resultType="int">
 		select id 
 		from concert 
-		where writer_id = #{writer_id}
+		where writer_id = #{writerId}
 	</select>
 	
 	<select id="instrument" resultType="int">
@@ -70,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<insert id="insert_concert_instrument" parameterType="hashmap">
 		insert into concert_instrument (id, concert_id, instrument_id) values 
-		(SEQ_CONCERT_INSTRUMENT.nextval, #{concert_id}, #{instrument_id})
+		(SEQ_CONCERT_INSTRUMENT.nextval, #{concertId}, #{instrumentId})
 	</insert>
 	
 	<select id="tag" resultType="int">
@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<insert id="insert_concert_tag" parameterType="hashmap">
 		insert into concert_tag (id, concert_id, tag_id) values 
-		(SEQ_CONCERT_TAG.nextval, #{concert_id}, #{tag_id})
+		(SEQ_CONCERT_TAG.nextval, #{concertId}, #{tagId})
 	</insert>
 	
 	<update id="increaseViewcnt">
@@ -87,23 +87,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{id}
 	</update>
 	
-	<select id="getView" resultType="com.ceramicduck.angryduck.model.dto.PhotoBoardDTO">
+	<select id="getView" resultType="com.ceramicduck.angryduck.dto.PhotoBoardDTO">
 		select c.id, c.writer_id, name, title, content, image, region, datetime, timestamp, viewcnt
 		from concert c, account a 
 		where c.writer_id = a.id and c.id = #{id}
 	</select>
-	<select id="get_concert_instrument" resultType="com.ceramicduck.angryduck.model.dto.InstrumentDTO">
+	<select id="get_concert_instrument" resultType="com.ceramicduck.angryduck.dto.InstrumentDTO">
 		select i.id, i.name from concert_instrument c_i, instrument i
 		where c_i.concert_id = #{id} and c_i.instrument_id = i.id
 	</select>
 	
-	<select id="get_concert_tag" resultType="com.ceramicduck.angryduck.model.dto.TagDTO">
+	<select id="get_concert_tag" resultType="com.ceramicduck.angryduck.dto.TagDTO">
 		select t.id, t.content 
 		from concert_tag c_t, tag t
 		where c_t.concert_id = #{id} and c_t.tag_id = t.id
 	</select>
 	
-	<select id="getNotice" resultType="com.ceramicduck.angryduck.model.dto.PhotoBoardDTO">
+	<select id="getNotice" resultType="com.ceramicduck.angryduck.dto.PhotoBoardDTO">
 		select c.id, title,timestamp,viewcnt,name,image
 		from concert c, account a
 		where c.id= #{id} and c.writer_id = a.id
@@ -111,19 +111,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertApply">
 		insert into concert_performer (id, account_id, concert_id) values
-		(SEQ_CONCERT_PERFORMER.nextval, #{account_id}, #{concert_id})
+		(SEQ_CONCERT_PERFORMER.nextval, #{accountId}, #{concertId})
 	</insert>
 	<delete id="delete_concert_instrument">
-		delete from concert_instrument where concert_id = #{concert_id}
+		delete from concert_instrument where concert_id = #{concertId}
 	</delete>
 	<delete id="delete_concert_tag">
-		delete from concert_tag where concert_id = #{concert_id}
+		delete from concert_tag where concert_id = #{concertId}
 	</delete>
 	<delete id="delete_concert">
-		delete from concert where id = #{concert_id}
+		delete from concert where id = #{concertId}
 	</delete>
 	<delete id="delete_concert_performer">
-		delete from concert_performer where concert_id =#{concert_id}
+		delete from concert_performer where concert_id =#{concertId}
 	</delete>
 </mapper>
 

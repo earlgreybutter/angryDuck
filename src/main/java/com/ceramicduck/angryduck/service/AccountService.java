@@ -2,7 +2,7 @@ package com.ceramicduck.angryduck.service;
 
 import javax.servlet.http.HttpSession;
 
-import com.ceramicduck.angryduck.model.dto.AccountDTO;
+import com.ceramicduck.angryduck.dto.AccountDTO;
 
 public interface AccountService {
 	//회원가입 부분

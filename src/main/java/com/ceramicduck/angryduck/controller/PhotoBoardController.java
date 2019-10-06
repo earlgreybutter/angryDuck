@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ceramicduck.angryduck.model.dto.AccountDTO;
-import com.ceramicduck.angryduck.model.dto.PhotoBoardDTO;
-import com.ceramicduck.angryduck.service.photo_board.PhotoBoardService;
+import com.ceramicduck.angryduck.dto.AccountDTO;
+import com.ceramicduck.angryduck.dto.PhotoBoardDTO;
+import com.ceramicduck.angryduck.service.PhotoBoardService;
 
 @Controller
 @RequestMapping("/photo_board/*")
@@ -40,8 +40,10 @@ public class PhotoBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(PhotoBoardController.class);
 	
 	@RequestMapping("insert")
-	public String insert(@ModelAttribute PhotoBoardDTO dto,@RequestParam("tag") String[] tag
-			, @RequestParam("instrument") String[] instrument, HttpSession session) throws IOException{
+	public String insert(
+			@ModelAttribute PhotoBoardDTO dto,
+			@RequestParam("tag") String[] tag,
+			@RequestParam("instrument") String[] instrument, HttpSession session) throws IOException{
 		String filename="-";
 		if(!dto.getFile1().isEmpty()) {
 			filename = System.currentTimeMillis()+dto.getFile1().getOriginalFilename();
@@ -64,55 +66,53 @@ public class PhotoBoardController {
 				
 				byte[] buffer = new byte[1024]; 
 			    int length;
-			  
-			     while ((length = inStream.read(buffer)) > 0){
+			    while ((length = inStream.read(buffer)) > 0){
 			    	 outStream.write(buffer, 0, length);
-			     }
-			}catch (Exception e) {
+			    }
+			}
+			catch (Exception e) {
 				e.printStackTrace();
-			}finally{
+			}
+			finally{
 				inStream.close();
 				outStream.close();
-			  }
-			
+			}
 		}
 		dto.setImage(filename);
-		int writer_id = (int)session.getAttribute("id");
-		dto.setWriter_id(writer_id);
+		int writerId = (int)session.getAttribute("id");
+		dto.setWriterId(writerId);
 		photoBoardService.insert(dto);
 		
-		int concert_id = photoBoardService.getId(writer_id);
-		
-		photoBoardService.insertConcertInstrument(concert_id, instrument);
-		photoBoardService.insertConcertTag(concert_id,tag);
-		
-		
+		int concertId = photoBoardService.getId(writerId);
+		photoBoardService.insertConcertInstrument(concertId, instrument);
+		photoBoardService.insertConcertTag(concertId,tag);
 		return "redirect:/photoboard";
 	}
 	
 	@RequestMapping("view")
-	public ModelAndView view(@RequestParam int id,
+	public ModelAndView view(
+			@RequestParam int id,
 			@RequestParam int curPage,
-			@RequestParam String search_option,
+			@RequestParam String searchOption,
 			@RequestParam String keyword, HttpSession session, ModelAndView mav) {
 		photoBoardService.increaseViewcnt(id);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		mav.setViewName("photo_board/content");
 		map.put("dto",photoBoardService.getView(id));
 		map.put("curPage",curPage);
-		map.put("search_option", search_option);
+		map.put("search_option", searchOption);
 		map.put("keyword", keyword);
 		mav.addObject("map",map);
-		
 		return mav;
 	}
 	
 	@RequestMapping("insertApply")
 	@ResponseBody
-	public void insertApply(@RequestParam("concert_id") int concert_id,
+	public void insertApply(
+			@RequestParam("concert_id") int concertId,
 			HttpSession session) {
 		int account_id = (int)session.getAttribute("id");
-		photoBoardService.insertApply(account_id,concert_id);
+		photoBoardService.insertApply(account_id,concertId);
 	}
 	
 	@RequestMapping("viewApplicants")

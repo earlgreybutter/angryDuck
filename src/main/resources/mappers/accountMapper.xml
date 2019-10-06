@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(SEQ_ACCOUNT_TAG.nextval, #{accountId}, #{tagId})
 	</insert>
 	
-	<select id="login_check" resultType="com.ceramicduck.angryduck.model.dto.AccountDTO">
+	<select id="login_check" resultType="com.ceramicduck.angryduck.dto.AccountDTO">
 		select id,name,role from account 
 		where email=#{email} and password=#{password}
 	</select>
@@ -51,17 +51,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from account where id = #{accountId}
 	</delete>
 	
-	<select id="get_account" resultType="com.ceramicduck.angryduck.model.dto.AccountDTO">
+	<select id="get_account" resultType="com.ceramicduck.angryduck.dto.AccountDTO">
 		select * from account
 		where id = #{accountId}
 	</select>
 	
-	<select id="get_account_instrument" resultType="com.ceramicduck.angryduck.model.dto.InstrumentDTO">
+	<select id="get_account_instrument" resultType="com.ceramicduck.angryduck.dto.InstrumentDTO">
 		select i.id, i.name from account_instrument a_i, instrument i
 		where a_i.account_id = #{accountId} and a_i.instrument_id = i.id
 	</select>
 	
-	<select id="get_account_tag" resultType="com.ceramicduck.angryduck.model.dto.TagDTO">
+	<select id="get_account_tag" resultType="com.ceramicduck.angryduck.dto.TagDTO">
 		select t.id, t.content from account_tag a_t, tag t
 		where a_t.account_id = #{accountId} and a_t.tag_id = t.id
 	</select>
@@ -82,10 +82,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from concert_performer where account_id =#{accountId}
 	</delete>
 	
-	<select id="getApplicants" resultType="com.ceramicduck.angryduck.model.dto.AccountDTO">
+	<select id="getApplicants" resultType="com.ceramicduck.angryduck.dto.AccountDTO">
 		select id,email, name, age, gender, description 
 		from account 
-		where id in(select account_id from concert_performer where concert_id = #{concert_id})
+		where id in(select account_id from concert_performer where concert_id = #{concertId})
 	</select>
 </mapper>
 

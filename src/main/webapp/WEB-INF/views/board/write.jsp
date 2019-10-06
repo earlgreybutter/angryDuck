@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 	<script>
 $(function(){
@@ -26,25 +26,27 @@ $(function(){
 	<div id="main_content">
 		<div class="w3-container" style="padding:32px 16px">
 			<div id="formCenter">
-				<div class="w3-card w3-white w3-padding">
-					<h3 class="w3-center w3-xlarge">등록하기</h3>
-					<img src="${path}/resources/images/about_01.jpg" class="setCenter w3-margin-bottom" style="width:30%">
+				<div class="w3-white w3-padding">
+					<img src="${path}/resources/images/title_hamobee.png" class="setCenter w3-margin-bottom" style="width:30%">
 					<form name="form1" action="${path}/photo_board/insert" method="post">
 						<table align="center">
 						
 							<tr>
-								<td>제목</td>
-								<td>
-									<input type="text" id="title" name="title"  size="70"
-									placeholder="Title">
-								</td>
+								<label class="w3-large">Title</label>
+								<div class="w3-rest w3-large">
+									<input 
+										class="w3-input w3-border w3-round-large" 
+										type="text" id="title" name="title"
+										placeholder="Title">
+								</div>
+								
 							</tr>
 							<tr><td><br></td></tr>
 							 <tr>
-								<td>내용</td>
-								<td>
-									<textarea  name="content" cols="80" rows="5"placeholder="내용을 입력하세요"></textarea>
-							 	</td>
+								<label class="w3-large">Content</label>
+								<div class="w3-rest w3-large">
+									<textarea class="w3-input w3-border w3-round" style="resize:none" rows="7" name="content" placeholder="내용을 입력하세요"></textarea>
+							 	</div>
 							 </tr>
 							 <tr>
 							 	<td colspan="2" align="center">

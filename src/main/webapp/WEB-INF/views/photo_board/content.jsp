@@ -4,13 +4,13 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 	<script>
 	$(function(){
 		$("#btnApply").click(function(){
-			var concert_id = "${map.dto.id}";
-			var param={"concert_id":concert_id};
+			var concertId = "${map.dto.id}";
+			var param={"concertId":concertId};
 			$.ajax({
 				type: "post",
 				url: "${path}/photo_board/insertApply",
@@ -45,12 +45,14 @@
 			<div class="w3-container w3-margin-bottom">
 				<div class="w3-container w3-white">
 					<div class="w3-half">
-						<img src="${path}/resources/images/${map.dto.image}" alt="Image" style="width:100%" class="w3-hover-opacity w3-padding-16">
+						<img src="${path}/resources/images/${map.dto.image}" alt="Image" style="width:100%" class="w3-padding-16">
 					</div>
 					<div class="w3-half">
 						<div style="margin-left:16px">
-							<p><b>${map.dto.title}</b></p>
-							<p> 작성자 : ${map.dto.name} 조회수 : ${map.dto.viewcnt}
+							<p>
+								<b class="w3-xlarge">${map.dto.title}</b>
+								<div style="text-align:right"> 작성자 : ${map.dto.name} 조회수 : ${map.dto.viewcnt}</div>
+							</p>
 							<p> 지역 : ${map.dto.region}</p>
 							<p> 공연 일자 : ${map.dto.datetime }</p>
 							<p> 모집 악기 : 
@@ -79,13 +81,10 @@
 						<div class="w3-bar-item w3-quarter"></div>
 					</c:when>
 				</c:choose>
-				<a href="${path}/photoboard?curPage=${map.curPage}&search_option=${map.search_option}&keyword=${map.keyword}" class="w3-bar-item w3-button w3-black w3-hover-grey"> Back </a>
+				<a href="${path}/photoboard?curPage=${map.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}" class="w3-bar-item w3-button w3-black w3-hover-grey"> Back </a>
 			</div>
 		</div>
 
-		<footer>
-			<div class="w3-black w3-center w3-padding-24">Created by <a href="${path}/contact"" class="w3-hover-opacity">angryduck</a></div>
-		</footer>
 	</div>
 </body>
 </html>

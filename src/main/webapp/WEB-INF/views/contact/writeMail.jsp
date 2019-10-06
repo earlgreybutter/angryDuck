@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>GuestFinder</title>
+	<title>Hamobee</title>
 	<%@ include file="../include/header.jsp" %>
 <script>
 function btnSendMail(){
@@ -37,37 +37,45 @@ function btnSendMail(){
 	</div>
 	
 	<div class="w3-padding-large w3-display-middle" id="main_forMargin">
-		<div class="w3-container w3-white w3-opacity-min w3-round-xxlarge" style="padding:32px 16px">
+		<div class="w3-container w3-white w3-round-xxlarge" style="padding:32px 16px">
 			<div id="formCenter">
-				<div class="w3-card w3-white w3-padding">
+				<div class="w3-white w3-padding">
 					<h3 class="w3-center w3-xlarge">Send Mail</h3>
 					<form name="form1" method="post">
 						<table align="center">
 							<tr>
 								<td>보내는 사람</td>
 								<td>
-									<input type="text" id="from" name="from" 
+									<input 
+									class="w3-input w3-border w3-round-large" 
+									type="text" id="from" name="from" 
 									placeholder="ID@yourDomain.com">
 								</td>
 							</tr>
 							<tr>
 								<td>받는 사람</td>
 								<td>
-									<input type="text" id="to" name="to" 
+									<input 
+									class="w3-input w3-border w3-round-large" 
+									type="text" id="to" name="to" 
 									value="kys4548@gmail.com" readonly>
 								</td>
 							</tr>
 							<tr>
 								<td>제목</td>
 								<td>
-									<input type="text" id="subject" name="subject" 
+									<input 
+									class="w3-input w3-border w3-round-large" 
+									type="text" id="subject" name="subject" 
 									placeholder="Subject">  
 								</td>
 							<tr>
 							<tr>
 								<td>내용</td>
 								<td>
-									<textarea cols="25" rows="4"id="contents" name="contents" 
+									<textarea 
+									class="w3-input w3-border w3-round-large" 
+									style="height:200px" cols="25" id="contents" name="contents" 
 									placeholder="Content"></textarea>
 								</td>
 							<tr>

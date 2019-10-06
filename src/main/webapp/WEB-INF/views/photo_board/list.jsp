@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GuestFinder</title>
+	<title>Hamobee</title>
 <%@ include file="../include/header.jsp"%>
 <script>
 
@@ -26,11 +26,11 @@ $(function(){
 		location.href = "${path}/photo_board/write";
 	});
 	$("#btnViewMyPosts").click(function(){
-		location.href = "${path}/photoboard?search_option=writer_id&keyword=${sessionScope.id}";
+		location.href = "${path}/photoboard?searchOption=writerId&keyword=${sessionScope.id}";
 	});
 });
 function list(page){
-	location.href="${path}/photoboard?curPage="+page+"&search_option=${map.search_option}"
+	location.href="${path}/photoboard?curPage="+page+"&searchOption=${map.searchOption}"
 	+"&keyword=${map.keyword}";
 }
 
@@ -67,47 +67,51 @@ function list(page){
 			</div>
 		</header>
 		&nbsp;&nbsp;&nbsp;&nbsp;${map.count}개의 게시물이 있습니다.
-		<div class="w3-center w3-padding-32">
+		<div class="w3-center ">
 			<div class="w3-bar">
-			
-				<div class="w3-third w3-container w3-margin-bottom w3-left-align" >
-					<a href="${path}/photo_board/view?id=1
-					&curPage=${map.pager.curPage}
-					&search_option=${map.search_option}
-					&keyword=${map.keyword}" class="anchorNoDeco">
-						<img src="${path}/resources/images/${map.notice.image}" alt="Image" style="width:100%" class="w3-hover-opacity">
-					</a>
-					<div class="w3-container w3-white">
-						<font color="green"><p><b> [${map.notice.id}] ${map.notice.title}</b>    Hit : ${map.notice.viewcnt}</p></font>
-						<p>Writer : ${map.notice.name}</p>
-						<p>${map.notice.timestamp}</p>
+				<div class="w3-container">
+					
+					<div class="w3-third">
+						<div class=" w3-margin w3-left-align w3-card w3-white" style="height:600px">
+							<a href="${path}/photo_board/view?id=1
+							&curPage=${map.pager.curPage}
+							&searchOption=${map.searchOption}
+							&keyword=${map.keyword}" class="anchorNoDeco">
+								<img src="${path}/resources/images/${map.notice.image}" alt="Image" style="width:100%;height:400px" class="w3-hover-opacity">
+							</a>
+							<div class="w3-container w3-white">
+								<font color="green"><p><b> [${map.notice.id}] ${map.notice.title}</b>    Hit : ${map.notice.viewcnt}</p></font>
+								<p>Writer : ${map.notice.name}</p>
+								<p>${map.notice.timestamp}</p>
+							</div>
+						</div>
+					</div>
+					<div class="w3-third">
+						<c:forEach var="row" items="${map.list }" varStatus="status">
+							<div class="w3-margin w3-left-align w3-card w3-white" style="height:600px">
+								<a href="${path}/photo_board/view?id=${row.id}
+								&curPage=${map.pager.curPage}
+								&searchOption=${map.searchOption}
+								&keyword=${map.keyword}" class="anchorNoDeco">
+									<img src="${path}/resources/images/${row.image}" alt="Image" style="width:100%;height:400px" class="w3-hover-opacity">
+								</a>
+								<div class="w3-container w3-white">
+									<p><b> [${row.id}] ${row.title}</b>    Hit : ${row.viewcnt}</p>
+									<p>Writer : ${row.name}</p>
+									<p>${row.timestamp}</p>
+									<div class="w3-container w3-right">
+										<c:choose>
+											<c:when test="${sessionScope.role=='recruiter' and sessionScope.id == row.writerId}">
+												<a href="${path}/photo_board/viewApplicants?id=${row.id}"><input type="button" value="지원자 보기" class="w3-button w3-black w3-hover-grey"></a>
+												<a href="${path}/photo_board/deleteConcert?id=${row.id}"><input type="button" value="삭제하기" class="w3-button w3-black w3-hover-grey"></a>
+											</c:when>
+										</c:choose>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
-			
-			
-			<c:forEach var="row" items="${map.list }" varStatus="status">
-				
-				<div class="w3-third w3-container w3-margin-bottom w3-left-align">
-					<a href="${path}/photo_board/view?id=${row.id}
-					&curPage=${map.pager.curPage}
-					&search_option=${map.search_option}
-					&keyword=${map.keyword}" class="anchorNoDeco">
-						<img src="${path}/resources/images/${row.image}" alt="Image" style="width:100%" class="w3-hover-opacity">
-					</a>
-					<div class="w3-container w3-white">
-						<p><b> [${row.id}] ${row.title}</b>    Hit : ${row.viewcnt}</p>
-						<p>Writer : ${row.name}</p>
-						<p>${row.timestamp}</p>
-						<c:choose>
-							<c:when test="${sessionScope.role=='recruiter' and sessionScope.id == row.writer_id}">
-								<a href="${path}/photo_board/viewApplicants?id=${row.id}"><input type="button" value="지원자 보기" class="w3-button w3-black w3-hover-grey"></a>
-								<a href="${path}/photo_board/deleteConcert?id=${row.id}"><input type="button" value="삭제하기" class="w3-button w3-black w3-hover-grey"></a>
-							</c:when>
-						</c:choose>
-					</div>
-				</div>
-			</c:forEach>
-
 			</div>
 		</div>
 
@@ -117,21 +121,21 @@ function list(page){
 			<table>
 				<tr>
 					<td>
-						<select name="search_option">
+						<select name="searchOption" style="height:50px">
 						<c:choose>
-						<c:when test="${map.search_option =='name'}">
+						<c:when test="${map.searchOption =='name'}">
 							<option value="all">이름+제목+내용</option>
 							<option value="name" selected>이름</option>
 							<option value="content">내용</option>
 							<option value="title">제목</option>
 						</c:when>
-						<c:when test="${map.search_option =='content'}">
+						<c:when test="${map.searchOption =='content'}">
 							<option value="all">이름+제목+내용</option>
 							<option value="name">이름</option>
 							<option value="content" selected>내용</option>
 							<option value="title">제목</option>
 						</c:when>
-						<c:when test="${map.search_option =='title'}">
+						<c:when test="${map.searchOption =='title'}">
 							<option value="all">이름+제목+내용</option>
 							<option value="name">이름</option>
 							<option value="content">내용</option>
@@ -149,10 +153,10 @@ function list(page){
 						</select>
 						</td>
 						<td>
-						<input name="keyword" size="50" value="${map.keyword }">
+						<input class="w3-input w3-border" style="height:50px" name="keyword" size="50" value="${map.keyword }">
 						</td>
 						<td>
-						<input type="submit" value="조회">
+						<input class="w3-button"  style="height:50px" type="submit" value="조회">
 						</td>
 				</tr>
 			</table>
@@ -187,11 +191,6 @@ function list(page){
 			</div>
 		</div>
 
-		<footer>
-			<div class="w3-black w3-center w3-padding-24">
-				Created by <a href="${path}/contact"" class="w3-hover-opacity">angryduck</a>
-			</div>
-		</footer>
 	</div>
 </body>
 </html>
