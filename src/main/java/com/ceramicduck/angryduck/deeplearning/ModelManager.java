@@ -107,7 +107,7 @@ public class ModelManager {
 		recordReader.initialize(new FileSplit(new ClassPathResource(TRAIN_DATA_PATH).getFile()));
 		return new RecordReaderDataSetIterator
 				.Builder(recordReader, BATCH_SIZE)
-				.classification(20, OUTPUT_SIZE)
+				.classification(20, OUTPUT_SIZE) // result 가 시작되는 인덱스 번호, result 로 분류 가능한 데이터 갯수 
 				.build();
 	}
 
@@ -130,6 +130,8 @@ public class ModelManager {
 		return multiLayerNetwork;
 	}
 	
+	// input : 테스트를 원하는 데이터
+	// output : 가장 추천할만한 output 의 인덱스 값 반환 (0 ~ 10)
 	public int test(List<Double> data) {
 		double[][] dataArray = new double[1][data.size()];
 		for(int i = 0; i < dataArray.length; i++)
