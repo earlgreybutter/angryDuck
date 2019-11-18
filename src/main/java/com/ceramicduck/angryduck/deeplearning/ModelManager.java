@@ -28,14 +28,16 @@ import java.util.List;
 public class ModelManager {
 	private final int INPUT_SIZE = 20;
 	private final int HIDDEN_LAYER_1_SIZE = 100;
-	private final int HIDDEN_LAYER_2_SIZE = 20;
+	private final int HIDDEN_LAYER_2_SIZE = 100;
+	private final int HIDDEN_LAYER_3_SIZE = 50;
+	private final int HIDDEN_LAYER_4_SIZE = 20;
 	private final int OUTPUT_SIZE = 11;
 
-	private final String TRAIN_DATA_PATH = "train_data_shuffle.csv";
+	private final String TRAIN_DATA_PATH = "train_data.csv";
 	private final String SAVED_MODEL_PATH = "TRAINED_MODEL";
 	private final int EPOCH_SIZE = 1024; // 반복 학습 횟수
 	private final int BATCH_SIZE = 32; // 학습 단위
-	private final double LEARNING_RATE = 0.0005;
+	private final double LEARNING_RATE = 0.005;
 	private MultiLayerNetwork multiLayerNetwork;
 	
 	public ModelManager() {
@@ -67,10 +69,22 @@ public class ModelManager {
 						.activation(Activation.RELU)
 						.weightInit(WeightInit.XAVIER)
 						.build())
+				.layer(new DenseLayer.Builder()
+						.nIn(HIDDEN_LAYER_2_SIZE)
+						.nOut(HIDDEN_LAYER_3_SIZE)
+						.activation(Activation.RELU)
+						.weightInit(WeightInit.XAVIER)
+						.build())
+				.layer(new DenseLayer.Builder()
+						.nIn(HIDDEN_LAYER_3_SIZE)
+						.nOut(HIDDEN_LAYER_4_SIZE)
+						.activation(Activation.RELU)
+						.weightInit(WeightInit.XAVIER)
+						.build())
 				.layer(new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
 						.activation(Activation.SOFTMAX)
 						.weightInit(WeightInit.XAVIER)
-						.nIn(HIDDEN_LAYER_2_SIZE)
+						.nIn(HIDDEN_LAYER_4_SIZE)
 						.nOut(OUTPUT_SIZE).build())
 				.build();
 		MultiLayerNetwork multiLayerNetwork = new MultiLayerNetwork(multiLayerConfiguration);
