@@ -134,13 +134,16 @@ public class ModelManager {
 	// output : 가장 추천할만한 output 의 인덱스 값 반환 (0 ~ 10)
 	public int test(List<Double> data) {
 		double[][] dataArray = new double[1][data.size()];
-		for(int i = 0; i < dataArray.length; i++)
+		for(int i = 0; i < dataArray[0].length; i++)
 			dataArray[0][i] = data.get(i);
 
 		INDArray testData = Nd4j.create(dataArray);
 		List<INDArray> testResult = multiLayerNetwork.feedForward(testData);
+		System.out.println(testResult);
+
 		INDArray lastLayerResult = testResult.get(testResult.size() - 1);
 		INDArray result = lastLayerResult.getRow(0);
+		System.out.println(result);
 		return findMaxIndex(result);
 	}
 
