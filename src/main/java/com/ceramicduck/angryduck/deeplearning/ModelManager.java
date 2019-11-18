@@ -33,7 +33,7 @@ public class ModelManager {
 	private final int HIDDEN_LAYER_4_SIZE = 20;
 	private final int OUTPUT_SIZE = 11;
 
-	private final String TRAIN_DATA_PATH = "train_data.csv";
+	private final String TRAIN_DATA_PATH = "train_data_shuffle.csv";
 	private final String SAVED_MODEL_PATH = "TRAINED_MODEL";
 	private final int EPOCH_SIZE = 1024; // 반복 학습 횟수
 	private final int BATCH_SIZE = 32; // 학습 단위
