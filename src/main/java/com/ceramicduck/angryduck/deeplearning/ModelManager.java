@@ -18,6 +18,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
+import org.nd4j.linalg.learning.config.Sgd;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 import org.springframework.stereotype.Component;
 
@@ -35,9 +36,9 @@ public class ModelManager {
 
 	private final String TRAIN_DATA_PATH = "train_data_shuffle.csv";
 	private final String SAVED_MODEL_PATH = "TRAINED_MODEL";
-	private final int EPOCH_SIZE = 1024; // 반복 학습 횟수
+	private final int EPOCH_SIZE = 1024 * 1; // 반복 학습 횟수
 	private final int BATCH_SIZE = 32; // 학습 단위
-	private final double LEARNING_RATE = 0.005;
+	private final double LEARNING_RATE = 0.1;
 	private MultiLayerNetwork multiLayerNetwork;
 	
 	public ModelManager() {
@@ -54,34 +55,33 @@ public class ModelManager {
 	private MultiLayerNetwork createModel() {
 		MultiLayerConfiguration multiLayerConfiguration = new NeuralNetConfiguration.Builder()
 				.seed(RandomUtils.nextInt())
-				.updater(new Adam(LEARNING_RATE))
-				.l2(1e-4)
+				.updater(new Sgd(LEARNING_RATE))
 				.list()
 				.layer(new DenseLayer.Builder()
 						.nIn(INPUT_SIZE)
 						.nOut(HIDDEN_LAYER_1_SIZE)
-						.activation(Activation.RELU)
+						.activation(Activation.TANH)
 						.weightInit(WeightInit.XAVIER)
 						.build())
 				.layer(new DenseLayer.Builder()
 						.nIn(HIDDEN_LAYER_1_SIZE)
 						.nOut(HIDDEN_LAYER_2_SIZE)
-						.activation(Activation.RELU)
+						.activation(Activation.TANH)
 						.weightInit(WeightInit.XAVIER)
 						.build())
 				.layer(new DenseLayer.Builder()
 						.nIn(HIDDEN_LAYER_2_SIZE)
 						.nOut(HIDDEN_LAYER_3_SIZE)
-						.activation(Activation.RELU)
+						.activation(Activation.TANH)
 						.weightInit(WeightInit.XAVIER)
 						.build())
 				.layer(new DenseLayer.Builder()
 						.nIn(HIDDEN_LAYER_3_SIZE)
 						.nOut(HIDDEN_LAYER_4_SIZE)
-						.activation(Activation.RELU)
+						.activation(Activation.TANH)
 						.weightInit(WeightInit.XAVIER)
 						.build())
-				.layer(new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+				.layer(new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
 						.activation(Activation.SOFTMAX)
 						.weightInit(WeightInit.XAVIER)
 						.nIn(HIDDEN_LAYER_4_SIZE)
