@@ -36,7 +36,7 @@ public class ModelManager {
 
 	private final String TRAIN_DATA_PATH = "train_data_shuffle.csv";
 	private final String SAVED_MODEL_PATH = "TRAINED_MODEL";
-	private final int EPOCH_SIZE = 1024 * 1; // 반복 학습 횟수
+	private final int EPOCH_SIZE = 1024 * 1; // 반복 학습 횟수 : 학습된 모델은 32736
 	private final int BATCH_SIZE = 32; // 학습 단위
 	private final double LEARNING_RATE = 0.1;
 	private MultiLayerNetwork multiLayerNetwork;
